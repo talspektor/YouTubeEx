@@ -90,13 +90,20 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let moreButton = UIBarButtonItem(image: UIImage(named: "menu")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handelMore))
         navigationItem.rightBarButtonItems = [moreButton, searchBarButtonIten]
     }
-    @objc func handelSearch(){
-        
-    }
+    
+    let settings = SettingsLoancher()
+    
     @objc
-    func handelMore(){
+    func handelMore() {
+        //show manu
+        settings.showSettings()
+    }
+    
+    @objc
+    func handelSearch(){
         
     }
+    
     
     let menuBar: MenuBar = {
         let mb = MenuBar()
