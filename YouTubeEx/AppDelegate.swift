@@ -15,7 +15,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let laytout = UICollectionViewFlowLayout()
+        let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: laytout))
+        window?.rootViewController = navigationController
+        
+        navigationController.navigationBar.tintColor = .white
+        navigationController.navigationBar.barTintColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+        navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController.navigationBar.isTranslucent = false
+        
+        // get rid of black bar underneath navbar
+        UINavigationBar.appearance().shadowImage = UIImage()//Remove bar shadow
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+        let statusBar : UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+        statusBar.backgroundColor = UIColor.rgb(red: 194, green: 31, blue: 31)
+        
+    
+    
+        window?.addSubview(statusBar)
+        statusBar.leadingAnchor.constraint(equalTo: (window?.leadingAnchor)! ).isActive = true
+        statusBar.trailingAnchor.constraint(equalTo: (window?.trailingAnchor)!).isActive = true
+        statusBar.topAnchor.constraint(equalTo: (window?.topAnchor)!).isActive = true
+        statusBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
         return true
     }
 
