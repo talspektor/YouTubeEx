@@ -26,10 +26,61 @@ class BaseCell: UICollectionViewCell {
 
 class VideoCell: BaseCell {
     
-    let thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
+    var video: Video? {
+        didSet {
+            titleLabel.text = video?.title
+            
+            setupThumbnailImage()
+            
+            setupProfileImage()
+            
+            if let channelName = video?.channel?.name,
+               let numberOfViews = video?.numberOfViews {
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                let formatedNumberOfViews = numberFormatter.string(from: numberOfViews)!
+                let subtitleText = "\(channelName) - \(formatedNumberOfViews) - 2 years ago"
+                subTitleTextView.text = subtitleText
+            }
+  
+            // Measore title tet
+            if let title = video?.title {
+                let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
+                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+                let font = UIFont.systemFont(ofSize: 14)
+                let estimatedRect = NSString(string: title).boundingRect(with: size,
+                                                                         options: options,
+                                                                         attributes: [.font: font],
+                                                                         context: nil)
+//                
+//
+//                if estimatedRect.size.height > 20 {
+//                    titleLabelHeightConstraing?.constant = 44
+//                } else {
+//                    titleLabelHeightConstraing?.constant = 20
+//                }
+            }
+
+        }
+    }
+    
+    func setupProfileImage() {
+        if let profileImageUrl = video?.channel?.profileImageName {
+            userProfileImageView.loadImageUsingUrlString(urlString: profileImageUrl)
+        }
+    }
+    
+    func setupThumbnailImage(){
+        if let thumbnailImageUrl = video?.thumbnailImageName {
+            thumbnailImageView.loadImageUsingUrlString(urlString: thumbnailImageUrl)
+        }
+    }
+    
+    let thumbnailImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "image4")
+        imageView.image = UIImage(named: "taylorSwiftBlankSpase")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -43,11 +94,12 @@ class VideoCell: BaseCell {
         return view
     }()
     
-    let userProfileImageView: UIImageView = {
-        let imageView = UIImageView()
+    let userProfileImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "image3")
+        imageView.image = UIImage(named: "taylorSwiftThumbNamil")
         imageView.layer.cornerRadius = 22
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -56,6 +108,7 @@ class VideoCell: BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "This is some text to fill the title"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -68,6 +121,8 @@ class VideoCell: BaseCell {
         return textView
     }()
     
+    var titleLabelHeightConstraing: NSLayoutConstraint?
+    
     override func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(separatorView)
@@ -75,6 +130,7 @@ class VideoCell: BaseCell {
         addSubview(titleLabel)
         addSubview(subTitleTextView)
         
+        titleLabelHeightConstraing = titleLabel.heightAnchor.constraint(equalToConstant: 44)
         NSLayoutConstraint.activate([
             thumbnailImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -84,7 +140,7 @@ class VideoCell: BaseCell {
             userProfileImageView.heightAnchor.constraint(equalToConstant: 44),
             userProfileImageView.widthAnchor.constraint(equalToConstant: 44),
             userProfileImageView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 0),
-            userProfileImageView.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -16),
+            userProfileImageView.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 8),
             
             separatorView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             separatorView.heightAnchor.constraint(equalToConstant: 1),
@@ -94,12 +150,13 @@ class VideoCell: BaseCell {
             titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: userProfileImageView.trailingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 0),
-            titleLabel.heightAnchor.constraint(equalToConstant: 20),
+            titleLabelHeightConstraing!,
             
             subTitleTextView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 0),
             subTitleTextView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 0),
             subTitleTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            subTitleTextView.heightAnchor.constraint(equalToConstant: 20)
+            subTitleTextView.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -36),
+            subTitleTextView.heightAnchor.constraint(equalToConstant: 22)
             ])
         
     }

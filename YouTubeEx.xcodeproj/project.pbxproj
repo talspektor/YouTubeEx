@@ -15,6 +15,7 @@
 		886BF21321E2986D00009ADD /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BF21221E2986D00009ADD /* Extentions.swift */; };
 		886BF21621E298F000009ADD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BF21521E298F000009ADD /* VideoCell.swift */; };
 		886BF21A21E29D1D00009ADD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BF21921E29D1D00009ADD /* MenuBar.swift */; };
+		88882A7F21E4879200035D5E /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88882A7E21E4879200035D5E /* Video.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		886BF21221E2986D00009ADD /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		886BF21521E298F000009ADD /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		886BF21921E29D1D00009ADD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		88882A7E21E4879200035D5E /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +62,8 @@
 		8803EEFC21DEA0B1003FEBC0 /* YouTubeEx */ = {
 			isa = PBXGroup;
 			children = (
+				88882A7D21E4877300035D5E /* Model */,
 				8803EEFD21DEA0B1003FEBC0 /* AppDelegate.swift */,
-				886BF21821E299A300009ADD /* Model */,
 				886BF21721E2997200009ADD /* Controller */,
 				886BF21421E298D500009ADD /* View */,
 				886BF21121E2984400009ADD /* Helpers */,
@@ -98,9 +100,10 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		886BF21821E299A300009ADD /* Model */ = {
+		88882A7D21E4877300035D5E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88882A7E21E4879200035D5E /* Video.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8803EF0021DEA0B1003FEBC0 /* HomeController.swift in Sources */,
+				88882A7F21E4879200035D5E /* Video.swift in Sources */,
 				886BF21621E298F000009ADD /* VideoCell.swift in Sources */,
 				8803EEFE21DEA0B1003FEBC0 /* AppDelegate.swift in Sources */,
 				886BF21321E2986D00009ADD /* Extentions.swift in Sources */,
