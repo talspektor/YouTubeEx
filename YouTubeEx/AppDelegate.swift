@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let laytout = UICollectionViewFlowLayout()
+//        laytout.scrollDirection = .horizontal
         let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: laytout))
         window?.rootViewController = navigationController
         
