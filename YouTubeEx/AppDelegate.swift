@@ -18,10 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
-        let laytout = UICollectionViewFlowLayout()
-//        laytout.scrollDirection = .horizontal
-        let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: laytout))
+        let navigationController = NavigationController.shared
         window?.rootViewController = navigationController
         
         navigationController.navigationBar.tintColor = .white

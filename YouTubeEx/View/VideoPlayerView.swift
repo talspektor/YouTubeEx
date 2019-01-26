@@ -1,8 +1,8 @@
 //
-//  VideoLuancher.swift
+//  VideoPlayerView.swift
 //  YouTubeEx
 //
-//  Created by user140592 on 1/24/19.
+//  Created by user140592 on 1/26/19.
 //  Copyright © 2019 talspektor. All rights reserved.
 //
 
@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 
 class VideoPlayerView: UIView {
+    
+    var panGesture = UIPanGestureRecognizer()
     
     let activityIndecatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
@@ -25,9 +27,7 @@ class VideoPlayerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
         button.isHidden = true
-        
         button.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
-        
         return button
     }()
     
@@ -40,13 +40,12 @@ class VideoPlayerView: UIView {
         }else {
             player?.play()
             pausePlayButton.setImage(UIImage(named: "pause-button"), for: .normal)
-
+            
         }
-
         isPlaying = !isPlaying
     }
     
-    let controlsContainerView: UIView = {
+    lazy var controlsContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 1)
         return view
@@ -98,46 +97,69 @@ class VideoPlayerView: UIView {
         
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupPlayerView()
-        
-        setupGradiantLayer()
-        
-        controlsContainerView.frame = frame
+    private func addSubViews() {
         addSubview(controlsContainerView)
-        
         controlsContainerView.addSubview(activityIndecatorView)
+        controlsContainerView.addSubview(pausePlayButton)
+        controlsContainerView.addSubview(videoLengthLabel)
+        controlsContainerView.addSubview(currentTimeLabel)
+        controlsContainerView.addSubview(videoSlider)
+    }
+    
+    private func setConstraints() {
         activityIndecatorView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         activityIndecatorView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        controlsContainerView.addSubview(pausePlayButton)
         pausePlayButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         pausePlayButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         pausePlayButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         pausePlayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        controlsContainerView.addSubview(videoLengthLabel)
         videoLengthLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
         videoLengthLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
         videoLengthLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
         videoLengthLabel.heightAnchor.constraint(equalToConstant: 24)
         
-        controlsContainerView.addSubview(currentTimeLabel)
         currentTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         currentTimeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2).isActive = true
         currentTimeLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
-        controlsContainerView.addSubview(videoSlider)
         videoSlider.trailingAnchor.constraint(equalTo: videoLengthLabel.leadingAnchor, constant: 0).isActive = true
         videoSlider.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         videoSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 0).isActive = true
         videoSlider.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+    
+    private func setGesture() {
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
+        isUserInteractionEnabled = true
+        addGestureRecognizer(panGesture)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
+        setupPlayerView()
+        setupGradiantLayer()
         
+        controlsContainerView.frame = frame
+        addSubViews()
+        setConstraints()
+        setGesture()
         backgroundColor = .black
+    }
+    
+    @objc func draggedView(_ sender:UIPanGestureRecognizer) {
+        guard let view = self.superview else {return}
+        view.bringSubviewToFront(self)
+        let translation = sender.translation(in: view)
+        if center == CGPoint(x: center.x, y: (UIApplication.shared.keyWindow?.bounds.height)! - center.y) {
+            removeGestureRecognizer(panGesture)
+        }else {
+            center = CGPoint(x: center.x, y: center.y + translation.y)
+            sender.setTranslation(CGPoint.zero, in: view)
+        }
     }
     
     var player: AVPlayer?
@@ -165,7 +187,7 @@ class VideoPlayerView: UIView {
                 let minutesText = String(format: "%02d", Int(seconds) / 60)
                 
                 self.currentTimeLabel.text = "\(minutesText):\(secondsFormatedText)"
-
+                
                 // move the slider thumb
                 if let duration = self.player?.currentItem?.duration {
                     let durationSeconds = CMTimeGetSeconds(duration)
@@ -206,37 +228,5 @@ class VideoPlayerView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class VideoLauncher {
-    
-    func showVideoPlayer ()
-    {
-        print("Show")
-        
-        if let keyWindow = UIApplication.shared.keyWindow
-        {
-            let view = UIView(frame: keyWindow.frame)
-            view.backgroundColor = .white
-            
-            view.frame = CGRect(x: keyWindow.frame.width - 10, y: keyWindow.frame.height - 10, width: 10, height: 10)
-            
-            //16 * 9 is the aspect ratio of all HD videos
-            let height = keyWindow.frame.width * 9 / 16
-            let videoPlayerFrame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
-            let videoPlayerView = VideoPlayerView(frame: videoPlayerFrame)
-            view.addSubview(videoPlayerView)
-            keyWindow.addSubview(view)
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
-                view.frame = keyWindow.frame
-                
-            }) { (complitedAnimation) in
-                UIApplication.shared.setStatusBarHidden(true, with: .fade)
-            }
-        }
-        
     }
 }

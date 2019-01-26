@@ -15,6 +15,8 @@
 		8806672421EA82010039C7AE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8806672321EA82010039C7AE /* APIService.swift */; };
 		880EA6CE21F50D68009A2EBD /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880EA6CD21F50D68009A2EBD /* TrendingCell.swift */; };
 		880EA6D021F50FEF009A2EBD /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880EA6CF21F50FEF009A2EBD /* SubscriptionCell.swift */; };
+		881630F921FC4B1500CE5577 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881630F821FC4B1500CE5577 /* VideoPlayerView.swift */; };
+		881630FD21FC559F00CE5577 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881630FC21FC559F00CE5577 /* NavigationController.swift */; };
 		886BF21321E2986D00009ADD /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BF21221E2986D00009ADD /* Extentions.swift */; };
 		886BF21621E298F000009ADD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BF21521E298F000009ADD /* VideoCell.swift */; };
 		886BF21A21E29D1D00009ADD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BF21921E29D1D00009ADD /* MenuBar.swift */; };
@@ -36,6 +38,8 @@
 		8806672321EA82010039C7AE /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		880EA6CD21F50D68009A2EBD /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
 		880EA6CF21F50FEF009A2EBD /* SubscriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
+		881630F821FC4B1500CE5577 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		881630FC21FC559F00CE5577 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		886BF21221E2986D00009ADD /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		886BF21521E298F000009ADD /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		886BF21921E29D1D00009ADD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -102,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				886BF21221E2986D00009ADD /* Extentions.swift */,
-				88B94DA721FA550F00FD09C8 /* VideoLauncher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -116,6 +119,7 @@
 				88781BE321EE7680008CFDCD /* FeedCell.swift */,
 				880EA6CD21F50D68009A2EBD /* TrendingCell.swift */,
 				880EA6CF21F50FEF009A2EBD /* SubscriptionCell.swift */,
+				881630F821FC4B1500CE5577 /* VideoPlayerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -125,6 +129,8 @@
 			children = (
 				8803EEFF21DEA0B1003FEBC0 /* HomeController.swift */,
 				88882A8021E4FD9400035D5E /* SettingsLauncher.swift */,
+				881630FC21FC559F00CE5577 /* NavigationController.swift */,
+				88B94DA721FA550F00FD09C8 /* VideoLauncher.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -215,12 +221,14 @@
 				88B94DA821FA550F00FD09C8 /* VideoLauncher.swift in Sources */,
 				8803EEFE21DEA0B1003FEBC0 /* AppDelegate.swift in Sources */,
 				88882A8121E4FD9400035D5E /* SettingsLauncher.swift in Sources */,
+				881630FD21FC559F00CE5577 /* NavigationController.swift in Sources */,
 				886BF21321E2986D00009ADD /* Extentions.swift in Sources */,
 				880EA6CE21F50D68009A2EBD /* TrendingCell.swift in Sources */,
 				88882A8321E5057700035D5E /* SettingsCell.swift in Sources */,
 				8806672421EA82010039C7AE /* APIService.swift in Sources */,
 				880EA6D021F50FEF009A2EBD /* SubscriptionCell.swift in Sources */,
 				886BF21A21E29D1D00009ADD /* MenuBar.swift in Sources */,
+				881630F921FC4B1500CE5577 /* VideoPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
